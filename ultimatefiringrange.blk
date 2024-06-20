@@ -1,0 +1,2541 @@
+selected_tag:t=""
+bin_dump_file:t=""
+
+mission_settings{
+  player{
+    army:i=1
+    wing:t="player_unit"
+  }
+
+  player_teamB{
+    army:i=2
+  }
+
+  mission{
+    type:t="dynamic"
+    level:t="levels/avn_ireland_bay.bin"
+    environment:t="Day"
+    weather:t="good"
+    locName:t="Ultimate Firing Range"
+    locDesc:t="The ultimate War Thunder firing range!"
+    restoreType:t="manual"
+  }
+}
+
+imports{}
+triggers{
+  isCategory:b=yes
+  is_enabled:b=yes
+
+  mission_start{
+    is_enabled:b=yes
+    comments:t=""
+
+    props{
+      actionsType:t="PERFORM_ONE_BY_ONE"
+      conditionsType:t="ALL"
+      enableAfterComplete:b=no
+    }
+
+    events{
+      initMission{}
+    }
+
+    conditions{}
+    actions{
+      unitRespawn{
+        delay:r=1
+        offset:p3=0, 0, 0
+        object:t=""
+        target:t="spawn_zone"
+      }
+
+      triggerActivate{
+        target:t="trigger_tutorial_hints"
+        activate_type:t="ignoreConditions"
+        check_trigger_status:b=no
+        after_activation:t="disable"
+      }
+    }
+
+    else_actions{}
+  }
+
+  init{
+    isCategory:b=yes
+    is_enabled:b=yes
+
+    hints{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      trigger_tutorial_hints{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{}
+        actions{
+          playHint{
+            hintType:t="tutorialHint"
+            name:t="@init_hint"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=5
+            priority:i=1
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+            item:t=""
+          }
+
+          wait{
+            time:r=6
+          }
+
+          playHint{
+            hintType:t="tutorialHint"
+            name:t="@fast_fire_hint1"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=5
+            priority:i=1
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+            item:t="ID_REPAIR_TANK"
+          }
+
+          wait{
+            time:r=6
+          }
+
+          playHint{
+            hintType:t="tutorialHint"
+            name:t="@fast_fire_hint2"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=5
+            priority:i=1
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+            item:t="ID_ACTION_BAR_ITEM_5"
+          }
+
+          wait{
+            time:r=6
+          }
+
+          playHint{
+            hintType:t="tutorialHint"
+            name:t="@fast_fire_hint3"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=5
+            priority:i=1
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+            item:t="ID_ACTION_BAR_ITEM_6"
+          }
+
+          wait{
+            time:r=6
+          }
+
+          playHint{
+            hintType:t="tutorialHint"
+            name:t="@fast_fire_hint4"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=5
+            priority:i=1
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+            item:t="ID_ACTION_BAR_ITEM_7"
+          }
+        }
+
+        else_actions{}
+      }
+    }
+
+    keypress{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      check_keypress{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=yes
+        }
+
+        events{
+          periodicEvent{
+            time:r=0.15
+          }
+        }
+
+        conditions{}
+        actions{
+          triggerActivate{
+            target:t="enable_fastfire"
+            activate_type:t="checkConidtions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+
+          triggerActivate{
+            target:t="enable_ultrafire"
+            activate_type:t="checkConidtions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+
+          triggerActivate{
+            target:t="enable_chaosfire"
+            activate_type:t="checkConidtions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+
+          triggerActivate{
+            target:t="disable_fire_mod"
+            activate_type:t="checkConidtions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+        }
+
+        else_actions{}
+      }
+
+      enable_fastfire{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=yes
+        }
+
+        events{}
+        conditions{
+          playerShortcutPressed{
+            control:t="ID_REPAIR_TANK"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="disable_fire_mod"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+
+          wait{
+            time:r=0.5
+          }
+
+          triggerEnable{
+            target:t="3.00s"
+          }
+        }
+
+        else_actions{}
+      }
+
+      enable_ultrafire{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=yes
+        }
+
+        events{}
+        conditions{
+          playerShortcutPressed{
+            control:t="ID_ACTION_BAR_ITEM_5"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="disable_fire_mod"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+
+          wait{
+            time:r=0.5
+          }
+
+          triggerEnable{
+            target:t="0.33s"
+          }
+        }
+
+        else_actions{}
+      }
+
+      enable_chaosfire{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=yes
+        }
+
+        events{}
+        conditions{
+          playerShortcutPressed{
+            control:t="ID_ACTION_BAR_ITEM_6"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="disable_fire_mod"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="doNotChange"
+          }
+
+          wait{
+            time:r=0.5
+          }
+
+          triggerEnable{
+            target:t="0.05s"
+          }
+        }
+
+        else_actions{}
+      }
+
+      disable_fire_mod{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ALL"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=yes
+        }
+
+        events{}
+        conditions{
+          playerShortcutPressed{
+            control:t="ID_ACTION_BAR_ITEM_7"
+          }
+        }
+
+        actions{
+          triggerDisable{
+            target:t="3.00s"
+          }
+
+          triggerDisable{
+            target:t="0.33s"
+          }
+
+          triggerDisable{
+            target:t="0.05s"
+          }
+        }
+
+        else_actions{}
+      }
+    }
+
+    loops{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      resupply{
+        isCategory:b=yes
+        is_enabled:b=yes
+
+        3.00s{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ALL"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=3
+            }
+          }
+
+          conditions{}
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=no
+              fullRestore:b=yes
+              target:t="player_unit"
+              ammoRestore:b=yes
+            }
+          }
+
+          else_actions{}
+        }
+
+        0.33s{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ALL"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=0.33
+            }
+          }
+
+          conditions{}
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=no
+              fullRestore:b=yes
+              target:t="player_unit"
+              ammoRestore:b=yes
+            }
+          }
+
+          else_actions{}
+        }
+
+        0.05s{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ALL"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=0.01
+            }
+          }
+
+          conditions{}
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=no
+              fullRestore:b=yes
+              target:t="player_unit"
+              ammoRestore:b=yes
+            }
+          }
+
+          else_actions{}
+        }
+      }
+    }
+
+    misc{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      hide_waypoints{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{
+          initMission{}
+        }
+
+        conditions{}
+        actions{
+          missionMarkAsWaypoint{
+            visible:b=no
+            primary:b=no
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=1
+            target:t="lighthouse_zone"
+          }
+        }
+
+        else_actions{}
+      }
+
+      sleep_targets{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{
+          initMission{}
+        }
+
+        conditions{}
+        actions{
+          unitPutToSleep{
+            target:t="lighthouse_target_1"
+            target:t="lighthouse_target_2"
+            target:t="lighthouse_target_3"
+            target:t="lighthouse_target_4"
+          }
+
+          unitPutToSleep{
+            target:t="cliffs_target_1"
+            target:t="cliffs_target_2"
+            target:t="cliffs_target_3"
+            target:t="cliffs_target_4"
+          }
+
+          unitPutToSleep{
+            target:t="castle_target_1"
+            target:t="castle_target_2"
+            target:t="castle_target_3"
+            target:t="castle_target_4"
+            target:t="castle_target_5"
+            target:t="castle_target_6"
+          }
+
+          unitPutToSleep{
+            target:t="melee_target_1"
+            target:t="melee_target_2"
+            target:t="melee_target_3"
+            target:t="melee_target_4"
+            target:t="melee_target_5"
+          }
+        }
+
+        else_actions{}
+      }
+    }
+  }
+
+  spawn_area_triggers{
+    isCategory:b=yes
+    is_enabled:b=yes
+
+    hitbox_handler{
+      is_enabled:b=yes
+      comments:t=""
+
+      props{
+        actionsType:t="PERFORM_ONE_BY_ONE"
+        conditionsType:t="ANY"
+        enableAfterComplete:b=no
+      }
+
+      events{
+        periodicEvent{
+          time:r=1
+        }
+      }
+
+      conditions{}
+      actions{
+        triggerEnable{
+          target:t="lighthouse_area"
+        }
+
+        triggerActivate{
+          target:t="lighthouse_area"
+          activate_type:t="checkConidtions"
+          check_trigger_status:b=no
+          after_activation:t="doNotChange"
+        }
+
+        triggerDisable{
+          target:t="lighthouse_area"
+        }
+
+        triggerEnable{
+          target:t="cliffs_area"
+        }
+
+        triggerActivate{
+          target:t="cliffs_area"
+          activate_type:t="checkConidtions"
+          check_trigger_status:b=no
+          after_activation:t="doNotChange"
+        }
+
+        triggerDisable{
+          target:t="cliffs_area"
+        }
+
+        triggerEnable{
+          target:t="castle_area"
+        }
+
+        triggerActivate{
+          target:t="castle_area"
+          activate_type:t="checkConidtions"
+          check_trigger_status:b=no
+          after_activation:t="doNotChange"
+        }
+
+        triggerDisable{
+          target:t="castle_area"
+        }
+
+        triggerEnable{
+          target:t="melee_area"
+        }
+
+        triggerActivate{
+          target:t="melee_area"
+          activate_type:t="checkConidtions"
+          check_trigger_status:b=no
+          after_activation:t="doNotChange"
+        }
+
+        triggerDisable{
+          target:t="melee_area"
+        }
+      }
+
+      else_actions{}
+    }
+
+    hitbox_triggers{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      lighthouse_area{
+        is_enabled:b=no
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{
+          unitDistanceBetween{
+            value:r=70
+            math:t="3D"
+            object_type:t="isAlive"
+            object_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            target_type:t="isAlive"
+            target_marking:i=0
+            check_objects:t="any"
+            check_targets:t="any"
+            object:t="spawner_lighthouse"
+            target:t="player_unit"
+          }
+        }
+
+        actions{
+          playHint{
+            hintType:t="standard"
+            name:t="@target_hint1"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=10
+            priority:i=0
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+          }
+        }
+
+        else_actions{}
+      }
+
+      cliffs_area{
+        is_enabled:b=no
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{
+          unitDistanceBetween{
+            value:r=70
+            math:t="3D"
+            object_type:t="isAlive"
+            object_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            target_type:t="isAlive"
+            target_marking:i=0
+            check_objects:t="any"
+            check_targets:t="any"
+            object:t="spawner_cliffs"
+            target:t="player_unit"
+          }
+        }
+
+        actions{
+          playHint{
+            hintType:t="standard"
+            name:t="@target_hint2"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=10
+            priority:i=0
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+          }
+        }
+
+        else_actions{}
+      }
+
+      castle_area{
+        is_enabled:b=no
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{
+          unitDistanceBetween{
+            value:r=70
+            math:t="3D"
+            object_type:t="isAlive"
+            object_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            target_type:t="isAlive"
+            target_marking:i=0
+            check_objects:t="any"
+            check_targets:t="any"
+            object:t="spawner_castle"
+            target:t="player_unit"
+          }
+        }
+
+        actions{
+          playHint{
+            hintType:t="standard"
+            name:t="@target_hint3"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=10
+            priority:i=0
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+          }
+        }
+
+        else_actions{}
+      }
+
+      melee_area{
+        is_enabled:b=no
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{
+          unitDistanceBetween{
+            value:r=70
+            math:t="3D"
+            object_type:t="isAlive"
+            object_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            target_type:t="isAlive"
+            target_marking:i=0
+            check_objects:t="any"
+            check_targets:t="any"
+            object:t="spawner_melee"
+            target:t="player_unit"
+          }
+        }
+
+        actions{
+          playHint{
+            hintType:t="standard"
+            name:t="@target_hint4"
+            action:t="show"
+            shouldFadeOut:b=no
+            isOverFade:b=no
+            time:r=10
+            priority:i=0
+            target_marking:i=0
+            object_var_name:t=""
+            object_var_comp_op:t="equal"
+            object_var_value:i=0
+          }
+        }
+
+        else_actions{}
+      }
+    }
+
+    spawners{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      lighthouse_spawner{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{
+          periodicEvent{
+            time:r=0.5
+          }
+        }
+
+        conditions{
+          unitWhenKilled{
+            target:t="spawner_lighthouse"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="lighthouse"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="disable"
+          }
+        }
+
+        else_actions{}
+      }
+
+      cliffs_spawner{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{
+          periodicEvent{
+            time:r=0.5
+          }
+        }
+
+        conditions{
+          unitWhenKilled{
+            target:t="spawner_cliffs"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="cliffs"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="disable"
+          }
+        }
+
+        else_actions{}
+      }
+
+      castle_spawner{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{
+          periodicEvent{
+            time:r=0.5
+          }
+        }
+
+        conditions{
+          unitWhenKilled{
+            target:t="spawner_castle"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="castle"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="disable"
+          }
+        }
+
+        else_actions{}
+      }
+
+      melee_spawner{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{
+          periodicEvent{
+            time:r=0.5
+          }
+        }
+
+        conditions{
+          unitWhenKilled{
+            target:t="spawner_melee"
+          }
+        }
+
+        actions{
+          triggerActivate{
+            target:t="melee"
+            activate_type:t="ignoreConditions"
+            check_trigger_status:b=no
+            after_activation:t="disable"
+          }
+        }
+
+        else_actions{}
+      }
+    }
+
+    targets{
+      isCategory:b=yes
+      is_enabled:b=yes
+
+      lighthouse{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{}
+        actions{
+          unitWakeUp{
+            target:t="lighthouse_target_1"
+            target:t="lighthouse_target_2"
+            target:t="lighthouse_target_3"
+            target:t="lighthouse_target_4"
+          }
+
+          triggerEnable{
+            target:t="restore_lighthouse"
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=yes
+            primary:b=yes
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=0.75
+            target:t="lighthouse_zone"
+          }
+
+          wait{
+            time:r=7
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=no
+            primary:b=no
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=1
+            target:t="lighthouse_zone"
+          }
+        }
+
+        else_actions{}
+      }
+
+      cliffs{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{}
+        actions{
+          unitWakeUp{
+            target:t="cliffs_target_1"
+            target:t="cliffs_target_2"
+            target:t="cliffs_target_3"
+            target:t="cliffs_target_4"
+          }
+
+          triggerEnable{
+            target:t="restore_cliffs"
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=yes
+            primary:b=yes
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=0.75
+            target:t="cliffs_zone"
+          }
+
+          wait{
+            time:r=7
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=no
+            primary:b=no
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=1
+            target:t="cliffs_zone"
+          }
+        }
+
+        else_actions{}
+      }
+
+      castle{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{}
+        actions{
+          unitWakeUp{
+            target:t="castle_target_1"
+            target:t="castle_target_2"
+            target:t="castle_target_3"
+            target:t="castle_target_4"
+            target:t="castle_target_5"
+            target:t="castle_target_6"
+          }
+
+          triggerEnable{
+            target:t="restore_castle"
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=yes
+            primary:b=yes
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=0.75
+            target:t="castle_zone"
+          }
+
+          wait{
+            time:r=7
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=no
+            primary:b=no
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=1
+            target:t="castle_zone"
+          }
+        }
+
+        else_actions{}
+      }
+
+      melee{
+        is_enabled:b=yes
+        comments:t=""
+
+        props{
+          actionsType:t="PERFORM_ONE_BY_ONE"
+          conditionsType:t="ALL"
+          enableAfterComplete:b=no
+        }
+
+        events{}
+        conditions{}
+        actions{
+          unitWakeUp{
+            target:t="melee_target_1"
+            target:t="melee_target_2"
+            target:t="melee_target_3"
+            target:t="melee_target_4"
+            target:t="melee_target_5"
+          }
+
+          triggerEnable{
+            target:t="restore_melee"
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=yes
+            primary:b=yes
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=0.1
+            target:t="melee_zone"
+          }
+
+          wait{
+            time:r=7
+          }
+
+          missionMarkAsWaypoint{
+            visible:b=no
+            primary:b=no
+            oriented:b=no
+            ignoreDifficulty:b=no
+            scale:r=1
+            target:t="melee_zone"
+          }
+        }
+
+        else_actions{}
+      }
+
+      restoration{
+        isCategory:b=yes
+        is_enabled:b=yes
+
+        restore_lighthouse{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ANY"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=1
+            }
+          }
+
+          conditions{
+            unitWhenKilled{
+              target:t="lighthouse_target_1"
+            }
+
+            unitWhenKilled{
+              target:t="lighthouse_target_2"
+            }
+
+            unitWhenKilled{
+              target:t="lighthouse_target_3"
+            }
+
+            unitWhenKilled{
+              target:t="lighthouse_target_4"
+            }
+          }
+
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=yes
+              fullRestore:b=yes
+              target:t="lighthouse_target_1"
+              target:t="lighthouse_target_2"
+              target:t="lighthouse_target_3"
+              target:t="lighthouse_target_4"
+              target_type:t="isKilled"
+              delayForObjects:p2=10, 15
+            }
+          }
+
+          else_actions{}
+        }
+
+        restore_cliffs{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ANY"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=1
+            }
+          }
+
+          conditions{
+            unitWhenKilled{
+              target:t="cliffs_target_1"
+            }
+
+            unitWhenKilled{
+              target:t="cliffs_target_2"
+            }
+
+            unitWhenKilled{
+              target:t="cliffs_target_3"
+            }
+
+            unitWhenKilled{
+              target:t="cliffs_target_4"
+            }
+          }
+
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=yes
+              fullRestore:b=yes
+              target:t="cliffs_target_1"
+              target:t="cliffs_target_2"
+              target:t="cliffs_target_3"
+              target:t="cliffs_target_4"
+              target_type:t="isKilled"
+              delayForObjects:p2=10, 15
+            }
+          }
+
+          else_actions{}
+        }
+
+        restore_castle{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ANY"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=1
+            }
+          }
+
+          conditions{
+            unitWhenKilled{
+              target:t="castle_target_1"
+            }
+
+            unitWhenKilled{
+              target:t="castle_target_2"
+            }
+
+            unitWhenKilled{
+              target:t="castle_target_3"
+            }
+
+            unitWhenKilled{
+              target:t="castle_target_4"
+            }
+
+            unitWhenKilled{
+              target:t="castle_target_5"
+            }
+
+            unitWhenKilled{
+              target:t="castle_target_6"
+            }
+          }
+
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=yes
+              fullRestore:b=yes
+              target:t="castle_target_1"
+              target:t="castle_target_2"
+              target:t="castle_target_3"
+              target:t="castle_target_4"
+              target:t="castle_target_5"
+              target:t="castle_target_6"
+              target_type:t="isKilled"
+              delayForObjects:p2=10, 15
+            }
+          }
+
+          else_actions{}
+        }
+
+        restore_melee{
+          is_enabled:b=no
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ANY"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=1
+            }
+          }
+
+          conditions{
+            unitWhenKilled{
+              target:t="melee_target_1"
+            }
+
+            unitWhenKilled{
+              target:t="melee_target_2"
+            }
+
+            unitWhenKilled{
+              target:t="melee_target_3"
+            }
+
+            unitWhenKilled{
+              target:t="melee_target_4"
+            }
+
+            unitWhenKilled{
+              target:t="melee_target_5"
+            }
+          }
+
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=yes
+              fullRestore:b=yes
+              target:t="melee_target_1"
+              target:t="melee_target_2"
+              target:t="melee_target_3"
+              target:t="melee_target_4"
+              target:t="melee_target_5"
+              target_type:t="isKilled"
+              delayForObjects:p2=10, 15
+            }
+          }
+
+          else_actions{}
+        }
+
+        restore_bridges{
+          is_enabled:b=yes
+          comments:t=""
+
+          props{
+            actionsType:t="PERFORM_ONE_BY_ONE"
+            conditionsType:t="ANY"
+            enableAfterComplete:b=yes
+          }
+
+          events{
+            periodicEvent{
+              time:r=1
+            }
+          }
+
+          conditions{
+            unitWhenKilled{
+              target:t="bridge_01"
+            }
+
+            unitWhenKilled{
+              target:t="bridge_02"
+            }
+
+            unitWhenKilled{
+              target:t="bridge_03"
+            }
+
+            unitWhenKilled{
+              target:t="bridge_04"
+            }
+          }
+
+          actions{
+            unitRestore{
+              target_marking:i=0
+              ressurectIfDead:b=yes
+              fullRestore:b=yes
+              target:t="bridge_01"
+              target:t="bridge_02"
+              target:t="bridge_03"
+              target:t="bridge_04"
+              target_type:t="isKilled"
+              delayForObjects:p2=2, 4
+            }
+          }
+
+          else_actions{}
+        }
+      }
+    }
+  }
+
+  counters{
+    isCategory:b=yes
+    is_enabled:b=yes
+  }
+}
+
+mission_objectives{
+  isCategory:b=yes
+  is_enabled:b=yes
+}
+
+variables{
+  init_hint:t="Welcome to Ultimate Firing Range!"
+  fast_fire_hint1:t=": Enable fast fire."
+  fast_fire_hint2:t=": Enable super-fast fire rate."
+  fast_fire_hint3:t=": Enable ultra-chaos-fast fire."
+  fast_fire_hint4:t=": Disable all changes to fire rate."
+  target_hint1:t="[LONG RANGE] Kill the M22 Locust to spawn targets near the lighthouse."
+  target_hint2:t="[MID RANGE] Kill the M18 Hellcat to spawn targets by the cliffs."
+  target_hint3:t="[LONG RANGE] Kill the M56 Scorpion to spawn targets at the castle."
+  target_hint4:t="[CLOSE RANGE] Kill the Puma to spawn targets in the castle nearby."
+}
+
+dialogs{}
+airfields{}
+effects{}
+units{
+  tankModels{
+    name:t="player_unit"
+    tm:m=[[-0.0436194, 0, 0.999048] [0, 1, 0] [-0.999048, 0, -0.0436194] [2881.53, 75.8279, 182.329]]
+    unit_class:t="cn_object_122tm"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t="cn_object_122tm_default"
+    bullets0:t="120mm_china_HE"
+    bullets1:t="120mm_china_APDS_FS"
+    bullets2:t="120mm_china_HEAT_FS"
+    bullets3:t=""
+    bulletsCount0:i=5
+    bulletsCount1:i=5
+    bulletsCount2:i=5
+    bulletsCount3:i=5
+    crewSkillK:r=0
+    applyAllMods:b=yes
+
+    props{
+      army:i=1
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="spawner_lighthouse"
+    tm:m=[[0.642788, 0, -0.766044] [0, 1, 0] [0.766044, 0, 0.642788] [2861.71, 75.3306, 277.546]]
+    unit_class:t="us_m22_locust"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  structures{
+    name:t="bridge_01"
+    tm:m=[[-0.779539, -0.0376326, 0.625222] [-0.169777, 0.97352, -0.153084] [-0.602905, -0.225484, -0.765286] [3155.38, 39.5695, 477.429]]
+    unit_class:t="beton_road_br"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=1
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  structures{
+    name:t="bridge_02"
+    tm:m=[[-0.779539, -0.0376326, 0.625222] [-0.169777, 0.97352, -0.153084] [-0.602905, -0.225484, -0.765286] [3211.9, 60.682, 549.086]]
+    unit_class:t="beton_road_br"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=1
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  structures{
+    name:t="bridge_03"
+    tm:m=[[-0.779539, -0.0376326, 0.625222] [-0.169777, 0.97352, -0.153084] [-0.602905, -0.225484, -0.765286] [3270.16, 82.3563, 623.65]]
+    unit_class:t="beton_road_br"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=1
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  structures{
+    name:t="bridge_04"
+    tm:m=[[-0.779539, -0.0376326, 0.625222] [-0.169777, 0.97352, -0.153084] [-0.602905, -0.225484, -0.765286] [3325.05, 102.197, 692.062]]
+    unit_class:t="beton_road_br"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=1
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="spawner_cliffs"
+    tm:m=[[-0.819152, 0, 0.573577] [0, 1, 0] [-0.573577, 0, -0.819152] [3122.98, 57.0546, 404.308]]
+    unit_class:t="cn_m18_hellcat"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="spawner_castle"
+    tm:m=[[1, 0, 0] [0, 1, 0] [0, 0, 1] [3365.88, 135.364, 782.949]]
+    unit_class:t="us_m56_scorpion"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="spawner_melee"
+    tm:m=[[0.313467, 0, 0.949599] [0, 1, 0] [-0.949599, 0, 0.313467] [3427.78, 132.359, 641.718]]
+    unit_class:t="germ_sdkfz_234_3"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="lighthouse_target_1"
+    tm:m=[[0.185292, 0, -0.982683] [0, 1, 0] [0.982683, 0, 0.185292] [2692.65, 51.4956, 1561]]
+    unit_class:t="us_m4_sherman_promo"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="lighthouse_target_2"
+    tm:m=[[0.911388, 0, -0.411548] [0, 1, 0] [0.411548, 0, 0.911388] [2698.93, 51.4956, 1575.26]]
+    unit_class:t="us_m60_120s"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="lighthouse_target_3"
+    tm:m=[[0.351739, 0, -0.936098] [0, 1, 0] [0.936098, 0, 0.351739] [2667.6, 57.5603, 1557.13]]
+    unit_class:t="us_m103"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="lighthouse_target_4"
+    tm:m=[[0.501829, 0, -0.864967] [0, 1, 0] [0.864967, 0, 0.501829] [2652.38, 60.4349, 1540.44]]
+    unit_class:t="us_m1a2_abrams"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="cliffs_target_1"
+    tm:m=[[-0.929543, 0, -0.368715] [0, 1, 0] [0.368715, 0, -0.929543] [3374.89, 69.4082, 491.408]]
+    unit_class:t="il_merkava_mk_4m"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="cliffs_target_2"
+    tm:m=[[-0.932988, 0, -0.359908] [0, 1, 0] [0.359908, 0, -0.932988] [3422.23, 98.8295, 508.757]]
+    unit_class:t="il_magach_2"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="cliffs_target_3"
+    tm:m=[[-0.859248, 0, -0.51156] [0, 1, 0] [0.51156, 0, -0.859248] [3353.83, 69.9675, 558.604]]
+    unit_class:t="il_centurion_shot_kal_d"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="cliffs_target_4"
+    tm:m=[[-0.657632, 0, -0.753339] [0, 1, 0] [0.753339, 0, -0.657632] [3475.87, 123.642, 525.788]]
+    unit_class:t="il_tiran_4_sh"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="castle_target_1"
+    tm:m=[[-0.472196, 0, -0.881494] [0, 1, 0] [0.881494, 0, -0.472196] [3503.47, 36.9881, 1272.17]]
+    unit_class:t="sw_strf_90c"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="castle_target_2"
+    tm:m=[[-0.478843, 0, -0.877901] [0, 1, 0] [0.877901, 0, -0.478843] [3602.4, 47.3523, 1214.37]]
+    unit_class:t="sw_k9_vidar"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="castle_target_3"
+    tm:m=[[-0.532104, 0, -0.846679] [0, 1, 0] [0.846679, 0, -0.532104] [3551.77, 24.7101, 1246.09]]
+    unit_class:t="sw_t_72m1"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="castle_target_4"
+    tm:m=[[-0.399151, 0, -0.916885] [0, 1, 0] [0.916885, 0, -0.399151] [3615.94, 47.2955, 1248.27]]
+    unit_class:t="sw_ikv_91"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="castle_target_5"
+    tm:m=[[-0.241513, 0, -0.970398] [0, 1, 0] [0.970398, 0, -0.241513] [3552.27, 43.7984, 1360.17]]
+    unit_class:t="sw_strv_121"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="castle_target_6"
+    tm:m=[[-0.999985, 0, 0.00545678] [0, 1, 0] [-0.00545678, 0, -0.999985] [3630.58, 52.5462, 1218.64]]
+    unit_class:t="sw_strv_74"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  ships{
+    name:t="boat_target_1"
+    tm:m=[[0.554007, 0, 0.832512] [0, 1, 0] [-0.832512, 0, 0.554007] [3095.07, -1.51208, 929.583]]
+    unit_class:t="us_pt811"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    wayPoints:t="way_points_01"
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  ships{
+    name:t="boat_target_2"
+    tm:m=[[0.554007, 0, 0.832512] [0, 1, 0] [-0.832512, 0, 0.554007] [3011.76, -1.51208, 1031.11]]
+    unit_class:t="uss_brooklyn"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="dont_aim"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="melee_target_1"
+    tm:m=[[0.87966, 0, 0.475604] [0, 1, 0] [-0.475604, 0, 0.87966] [3413.67, 132.64, 654.221]]
+    unit_class:t="germ_pzkpfw_Maus"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="hold_fire"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="melee_target_2"
+    tm:m=[[0.87966, 0, 0.475604] [0, 1, 0] [-0.475604, 0, 0.87966] [3407.46, 132.64, 663.965]]
+    unit_class:t="germ_pzkpfw_VI_ausf_b_tiger_IIh_sla"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="hold_fire"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="melee_target_3"
+    tm:m=[[0.87966, 0, 0.475604] [0, 1, 0] [-0.475604, 0, 0.87966] [3401.3, 132.64, 673.406]]
+    unit_class:t="ussr_is_7"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="hold_fire"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="melee_target_4"
+    tm:m=[[0.87966, 0, 0.475604] [0, 1, 0] [-0.475604, 0, 0.87966] [3396.73, 132.64, 681.345]]
+    unit_class:t="ussr_is_4m"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="hold_fire"
+    }
+
+    way{}
+  }
+
+  tankModels{
+    name:t="melee_target_5"
+    tm:m=[[0.805921, 0, -0.592023] [0, 1, 0] [0.592023, 0, 0.805921] [3455.84, 132.64, 621.382]]
+    unit_class:t="ussr_zsu_23_4"
+    objLayer:i=1
+    closed_waypoints:b=no
+    isShipSpline:b=no
+    shipTurnRadius:r=100
+    weapons:t=""
+    bullets0:t=""
+    bullets1:t=""
+    bullets2:t=""
+    bullets3:t=""
+    bulletsCount0:i=0
+    bulletsCount1:i=0
+    bulletsCount2:i=0
+    bulletsCount3:i=0
+    crewSkillK:r=0
+    applyAllMods:b=no
+
+    props{
+      army:i=2
+      count:i=1
+      formation_type:t="rows"
+      formation_div:i=3
+      formation_step:p2=2.5, 2
+      formation_noise:p2=0.1, 0.1
+      attack_type:t="hold_fire"
+    }
+
+    way{}
+  }
+}
+
+areas{
+  spawn_zone{
+    type:t="Sphere"
+    tm:m=[[9.70537, 0, 0] [0, 9.70537, 0] [0, 0, 9.70537] [2881.52, 75.8896, 182.321]]
+    objLayer:i=0
+
+    props{}
+  }
+
+  lighthouse_zone{
+    type:t="Sphere"
+    tm:m=[[5.1349, 0, 0] [0, 5.1349, 0] [0, 0, 5.1349] [2677.94, 62.7711, 1547.19]]
+    objLayer:i=0
+
+    props{}
+  }
+
+  cliffs_zone{
+    type:t="Sphere"
+    tm:m=[[5.1349, 0, 0] [0, 5.1349, 0] [0, 0, 5.1349] [3389.28, 102.873, 534.99]]
+    objLayer:i=0
+
+    props{}
+  }
+
+  castle_zone{
+    type:t="Sphere"
+    tm:m=[[5.1349, 0, 0] [0, 5.1349, 0] [0, 0, 5.1349] [3550.9, 50.4908, 1253.58]]
+    objLayer:i=0
+
+    props{}
+  }
+
+  melee_zone{
+    type:t="Sphere"
+    tm:m=[[5.1349, 0, 0] [0, 5.1349, 0] [0, 0, 5.1349] [3422.7, 135.886, 634.902]]
+    objLayer:i=0
+
+    props{}
+  }
+}
+
+objLayers{
+  layer{
+    enabled:b=yes
+  }
+
+  layer{
+    enabled:b=yes
+  }
+
+  layer{
+    enabled:b=yes
+  }
+
+  layer{
+    enabled:b=yes
+  }
+}
+
+wayPoints{}

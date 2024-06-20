@@ -8,9 +8,11 @@ Ever wanted to play a different vehicle in a War Thunder user mission? Or any ve
 So far, only tanks are supported, meaning plane and ship missions can not yet be extended.
 
 # Instructions
-1. Run the "main.py" file
-2. Select your .blk file
-3. Proceed through the prompts
-4. Done!
+1. Unpack the .zip files in data/vehicles
+2. Run the "main.py" file
+3. Select your .blk file
+4. Proceed through the prompts
+5. Done!
 
 If you encounter any errors or issues, please post them here and I'll try to look into them.
+Made using Python 3.12.4

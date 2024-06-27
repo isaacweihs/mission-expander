@@ -13,7 +13,7 @@ import package.parse as blk_parser
 root = Tk()
 root.withdraw()
 
-messagebox.showinfo(title="Proceed with Caution", message="This script will duplicate your War Thunder user mission and make it available for ALL tanks/planes/boats in the game.\n\nPlease make a backup of your .blk file(s) in case anything aborts the script or if errors occur. I am not responsible for corrupt files or incorrect usage of this script.\n\nVersion: pre-release 0.1")
+messagebox.showinfo(title="Proceed with Caution", message="This script will duplicate your War Thunder user mission and make it available for ALL tanks/planes/boats in the game.\n\nPlease make a backup of your .blk file(s) in case anything aborts the script or if errors occur. I am not responsible for corrupt files or incorrect usage of this script.\n\nVersion: release 2.1")
 
 openfile = messagebox.askokcancel("Select file?", "Please select your .blk file")
 
